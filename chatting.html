@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chatting</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f7f7f7; color: #333; }
+    nav { background: #fff; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    nav a { margin-right: 15px; text-decoration: none; color: #333; font-weight: bold; }
+    nav a.active { color: #007bff; }
+    .lang-switch { float: right; }
+    .lang-switch button { padding: 4px 8px; cursor: pointer; }
+    form { background: #fff; padding: 20px; border-radius: 4px; box-shadow: 0 0 6px rgba(0,0,0,0.1); margin-top: 20px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full { grid-column: span 2; }
+    .slider-group { grid-column: span 2; }
+    label { margin-bottom: 5px; font-weight: bold; }
+    input, select, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 2px; font-size: 1em; }
+    textarea { resize: vertical; min-height: 80px; }
+    input[type=range] { width: 100%; }
+    .slider-labels { display: flex; justify-content: space-between; font-size: .85em; margin-top: 4px; }
+    .required { font-size: .75em; color: #d00; margin-left: 4px; }
+    .form-actions { text-align: right; margin-top: 20px; }
+    .form-actions a { padding: 8px 16px; background: #007bff; color: #fff; text-decoration: none; border-radius: 4px; }
+    .form-actions a.disabled { background: #aaa; pointer-events: none; }
+    .fr { display: inline; }
+    .en { display: none; }
+    html[data-lang="en"] .fr { display: none; }
+    html[data-lang="en"] .en { display: inline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="personal.html"><span class="fr">Info Perso</span></a>
+    <a href="chatting.html" class="active"><span class="fr">Discussion</span></a>
+    <a href="lifestyle.html"><span class="fr">Mode de vie</span></a>
+    <a href="physiques.html"><span class="fr">Physiques</span></a>
+    <a href="content.html"><span class="fr">Contenu</span></a>
+    <a href="intimate.html"><span class="fr">Détails Intimes</span></a>
+    <a href="socials.html"><span class="fr">Réseaux</span></a>
+    
+  </nav>
+
+  <form id="chatting-form">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="persona"><span class="fr">Quel est votre type de persona ?</span><span class="required"><span class="fr">Requis</span></span></label>
+        <select id="persona" name="persona" required>
+          <option value="">—</option>
+          <option value="type1">Type 1</option>
+          <option value="type2">Type 2</option>
+          <!-- etc. -->
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label for="selling"><span class="fr">Stratégie de vente</span><span class="required"><span class="fr">Requis</span></span></label>
+        <select id="selling" name="selling" required>
+          <option value="">—</option>
+          <option value="strat1">Stratégie 1</option>
+          <option value="strat2">Stratégie 2</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label for="describe_online">
+          <span class="fr">Comment décririez-vous votre personnalité en ligne ? Comment vos fans vous perçoivent-ils ?</span>
+          
+          <span class="required"><span class="fr">Requis</span></span>
+        </label>
+        <textarea id="describe_online" name="describe_online" required></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label for="topics">
+          <span class="fr">Quels sujets adorez-vous aborder et pourquoi ? Quels sujets maîtrisez-vous ?</span>
+          
+          <span class="required"><span class="fr">Requis</span></span>
+        </label>
+        <textarea id="topics" name="topics" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="laughter"><span class="fr">Comment exprimez-vous le rire en texte ?</span></label>
+        <input type="text" id="laughter" name="laughter" placeholder="ex : haha, mdr, 😄">
+      </div>
+
+      <div class="form-group">
+        <label for="slang"><span class="fr">Quel argot utilisez-vous ?</span><span class="required"><span class="fr">Requis</span></span></label>
+        <input type="text" id="slang" name="slang" placeholder="ex : ouf, chill, top" required>
+      </div>
+
+      <div class="form-group">
+        <label for="emojis"><span class="fr">Vos emojis favoris ?</span><span class="required"><span class="fr">Requis</span></span></label>
+        <input type="text" id="emojis" name="emojis" placeholder="ex : 😍🔥💋" required>
+      </div>
+
+      <div class="slider-group">
+        <label><span class="fr">Style de ponctuation</span></label>
+        <input type="range" id="punc_style" name="punc_style" min="0" max="100" value="50">
+        <div class="slider-labels">
+          <span><span class="fr">Minimal</span></span>
+          <span><span class="fr">Casual</span></span>
+          <span><span class="fr">Propre</span></span>
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <label><span class="fr">Style de majuscules</span></label>
+        <input type="range" id="cap_style" name="cap_style" min="0" max="100" value="50">
+        <div class="slider-labels">
+          <span><span class="fr">minuscules</span></span>
+          <span><span class="fr">Noms Propres</span></span>
+          <span><span class="fr">Propre</span></span>
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <label><span class="fr">Niveau d’écriture</span></label>
+        <input type="range" id="writing_level" name="writing_level" min="0" max="100" value="50">
+        <div class="slider-labels">
+          <span><span class="fr">Décontracté</span></span>
+          <span><span class="fr">Mixte</span></span>
+          <span><span class="fr">Soigné</span></span>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label for="fans_feel">
+          <span class="fr">Comment voulez-vous que vos fans se sentent en discutant avec vous ?</span>
+          
+        </label>
+        <input type="text" id="fans_feel" name="fans_feel">
+      </div>
+
+      <div class="form-group">
+        <label for="fan_nick">
+          <span class="fr">Quels surnoms utilisez-vous pour vos fans ?</span>
+          
+          <span class="required"><span class="fr">Requis</span></span>
+        </label>
+        <input type="text" id="fan_nick" name="fan_nick" placeholder="e.g. baby, honey">
+      </div>
+
+      <div class="form-group full">
+        <label for="avoid">
+          <span class="fr">Sujets à éviter ou à traiter avec prudence ?</span>
+          
+        </label>
+        <textarea id="avoid" name="avoid"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label for="suspect">
+          <span class="fr">Que dire à quelqu’un qui doute qu’il ne parle pas au créateur ? Donnez des exemples.</span>
+          
+        </label>
+        <textarea id="suspect" name="suspect"></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <a href="personal.html"><span class="fr">Précédent</span></a>
+      <a href="lifestyle.html"><span class="fr">Suivant</span></a>
+    </div>
+  </form>
+
+  <script>
+    // Persistance de la langue
+    const stored = localStorage.getItem('lang') || 'fr';
+    document.documentElement.setAttribute('data-lang', stored);
+    const btn = document.getElementById('toggle-lang');
+    btn.textContent = stored === 'fr' ? 'English' : 'Français';
+    btn.onclick = () => {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-lang') === 'fr' ? 'en' : 'fr';
+      html.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      btn.textContent = next === 'fr' ? 'English' : 'Français';
+    };
+  </script>
+
+
+<script>
+  const form = document.querySelector("form");
+  const formId = form.getAttribute("id");
+
+  // Charger les données sauvegardées
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedData = localStorage.getItem("formData_" + formId);
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      for (const [key, value] of Object.entries(data)) {
+        const field = form.elements.namedItem(key);
+        if (field) {
+          if (field.type === "checkbox" || field.type === "radio") {
+            if (Array.isArray(data[key])) {
+              data[key].forEach(val => {
+                const el = form.querySelector(`[name="\${key}"][value="\${val}"]`);
+                if (el) el.checked = true;
+              });
+            } else {
+              field.checked = true;
+            }
+          } else {
+            field.value = value;
+          }
+        }
+      }
+    }
+  });
+
+  // Sauvegarder automatiquement à chaque changement
+  form.addEventListener("input", () => {
+    const data = {};
+    for (const element of form.elements) {
+      if (!element.name) continue;
+      if ((element.type === "checkbox" || element.type === "radio") && !element.checked) continue;
+      if (element.type === "checkbox" && form.querySelectorAll(`[name="\${element.name}"]`).length > 1) {
+        data[element.name] = [...form.querySelectorAll(`[name="\${element.name}"]:checked`)].map(e => e.value);
+      } else {
+        data[element.name] = element.value;
+      }
+    }
+    localStorage.setItem("formData_" + formId, JSON.stringify(data));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Réseaux</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f7f7f7; color:#333; }
+    nav { background:#fff; padding:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+    nav a { margin-right:15px; text-decoration:none; color:#333; font-weight:bold; }
+    nav a.active { color:#007bff; }
+    .lang-switch { float:right; }
+    .lang-switch button { padding:4px 8px; cursor:pointer; }
+    form { background:#fff; padding:20px; border-radius:4px; box-shadow:0 0 6px rgba(0,0,0,0.1); margin-top:20px; }
+    .form-group { margin-bottom:20px; display:flex; flex-direction:column; }
+    label { margin-bottom:5px; font-weight:bold; }
+    select, input, textarea { padding:8px; border:1px solid #ccc; border-radius:2px; font-size:1em; }
+    textarea { resize:vertical; min-height:80px; }
+    .form-actions { text-align:right; margin-top:20px; }
+    .form-actions a { padding:8px 16px; background:#007bff; color:#fff; text-decoration:none; border-radius:4px; margin-left:8px; }
+    .fr { display:inline; }
+    .en { display:none; }
+    html[data-lang="en"] .fr { display:none; }
+    html[data-lang="en"] .en { display:inline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="personal.html"><span class="fr">Info Perso</span></a>
+    <a href="chatting.html"><span class="fr">Discussion</span></a>
+    <a href="lifestyle.html"><span class="fr">Mode de vie</span></a>
+    <a href="physiques.html"><span class="fr">Physiques</span></a>
+    <a href="content.html"><span class="fr">Contenu</span></a>
+    <a href="intimate.html"><span class="fr">Détails Intimes</span></a>
+    <a href="socials.html" class="active"><span class="fr">Réseaux</span></a>
+    
+  </nav>
+
+  <form id="socials-form" action="https://formsubmit.co/alex.vakn@gmail.com" method="POST">
+    <div class="form-group">
+      <label for="nsfw_platforms">
+        <span class="fr">Sur quelles autres plateformes explicites (NSFW) êtes-vous actif·ve ?</span>
+        
+      </label>
+      <select id="nsfw_platforms" name="nsfw_platforms">
+        <option value="">—</option>
+        <option value="onlyfans">OnlyFans</option>
+        <option value="fanvue">Fanvue</option>
+        <!-- etc. -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="social_platforms">
+        <span class="fr">Sur quelles plateformes sociales êtes-vous actif·ve ?</span>
+        
+      </label>
+      <select id="social_platforms" name="social_platforms">
+        <option value="">—</option>
+        <option value="instagram">Instagram</option>
+        <option value="twitter">Twitter</option>
+        <!-- etc. -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="handles">
+        <span class="fr">Vos pseudonymes sur les réseaux sociaux</span>
+        
+      </label>
+      <input type="text" id="handles" name="handles" placeholder="Indiquez vos pseudonymes sur les réseaux">
+    </div>
+
+    <div class="form-group">
+      <label for="unavailable_requests">
+        <span class="fr">Comment gérer les demandes de contenu social non disponible ?<br><small>Que faire si un fan vous demande des mises à jour récentes, mais elles ne figurent pas dans la bio ?<br>Donnez un exemple de réponse.</small></span>
+        
+      </label>
+      <textarea id="unavailable_requests" name="unavailable_requests" placeholder=""></textarea>
+    </div>
+
+    <div class="form-actions">
+      <a href="intimate.html"><span class="fr">Précédent</span></a>
+      
+    </div>
+  
+
+
+<!-- Bouton discret à placer sur la dernière page -->
+<button onclick="envoyerDonneesParEmail()" style="margin-top:20px;background:#28a745;color:white;padding:10px 16px;border:none;border-radius:4px;cursor:pointer;">
+  Envoyer le formulaire complet
+</button>
+
+
+
+
+
+
+
+<script>
+  const form = document.querySelector("form");
+  const formId = form.getAttribute("id");
+
+  // Charger les données sauvegardées
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedData = localStorage.getItem("formData_" + formId);
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      for (const [key, value] of Object.entries(data)) {
+        const field = form.elements.namedItem(key);
+        if (field) {
+          if (field.type === "checkbox" || field.type === "radio") {
+            if (Array.isArray(data[key])) {
+              data[key].forEach(val => {
+                const el = form.querySelector(`[name="\${key}"][value="\${val}"]`);
+                if (el) el.checked = true;
+              });
+            } else {
+              field.checked = true;
+            }
+          } else {
+            field.value = value;
+          }
+        }
+      }
+    }
+  });
+
+  // Sauvegarder automatiquement à chaque changement
+  form.addEventListener("input", () => {
+    const data = {};
+    for (const element of form.elements) {
+      if (!element.name) continue;
+      if ((element.type === "checkbox" || element.type === "radio") && !element.checked) continue;
+      if (element.type === "checkbox" && form.querySelectorAll(`[name="\${element.name}"]`).length > 1) {
+        data[element.name] = [...form.querySelectorAll(`[name="\${element.name}"]:checked`)].map(e => e.value);
+      } else {
+        data[element.name] = element.value;
+      }
+    }
+    localStorage.setItem("formData_" + formId, JSON.stringify(data));
+  });
+</script>
+
+
+<!-- Formulaire caché qui sera soumis automatiquement à Formsubmit -->
+<form id="real-submit" action="https://formsubmit.co/alex.vakn@gmail.com" method="POST" style="display:none;">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+
+  <!-- Boutons d'action -->
+  <div style="margin-top: 20px; display: flex; gap: 10px;">
+    <button type="submit" style="background:#28a745;color:white;padding:10px 16px;border:none;border-radius:4px;cursor:pointer;">
+      Envoyer le formulaire complet
+    </button>
+    <button type="button" onclick="resetFormulaires()" style="background:#dc3545;color:white;padding:10px 16px;border:none;border-radius:4px;cursor:pointer;">
+      Réinitialiser toutes les réponses
+    </button>
+  </div>
+  <script>
+    document.getElementById("socials-form").addEventListener("submit", function(e) {
+      // Avant soumission, ajouter les données de chaque formulaire
+      const form = e.target;
+      const formIds = ["personal-form", "chatting-form", "lifestyle-form", "physiques-form", "content-form", "intimate-form", "socials-form"];
+      formIds.forEach(id => {
+        const saved = localStorage.getItem("formData_" + id);
+        if (saved) {
+          const data = JSON.parse(saved);
+          Object.entries(data).forEach(([key, value]) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = Array.isArray(value) ? value.join(", ") : value;
+            form.appendChild(input);
+          });
+        }
+      });
+    });
+
+    function resetFormulaires() {
+      if (confirm("Êtes-vous sûr de vouloir effacer toutes les réponses ?")) {
+        ["personal-form", "chatting-form", "lifestyle-form", "physiques-form", "content-form", "intimate-form", "socials-form"]
+          .forEach(id => localStorage.removeItem("formData_" + id));
+        location.reload();
+      }
+    }
+  </script>
+</form>
+
+
+<script>
+  function envoyerDonneesParEmail() {
+    const forms = document.querySelectorAll("form");
+    let allData = {};
+
+    forms.forEach(form => {
+      const formId = form.getAttribute("id");
+      if (formId !== "real-submit") {
+        const saved = localStorage.getItem("formData_" + formId);
+        if (saved) {
+          const data = JSON.parse(saved);
+          allData = { ...allData, ...data };
+        }
+      }
+    });
+
+    const realForm = document.getElementById("real-submit");
+
+    for (const [key, value] of Object.entries(allData)) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = Array.isArray(value) ? value.join(", ") : value;
+      realForm.appendChild(input);
+    }
+
+    realForm.submit();
+  }
+
+  function resetFormulaires() {
+    if (confirm("Êtes-vous sûr de vouloir effacer toutes les réponses ?")) {
+      const forms = document.querySelectorAll("form");
+      forms.forEach(form => {
+        const id = form.getAttribute("id");
+        if (id) localStorage.removeItem("formData_" + id);
+      });
+      location.reload();
+    }
+  }
+</script>
+
+<div style="margin-top: 20px; display: flex; gap: 10px;">
+  <button onclick="envoyerDonneesParEmail()" style="background:#28a745;color:white;padding:10px 16px;border:none;border-radius:4px;cursor:pointer;">
+    Envoyer le formulaire complet
+  </button>
+  <button onclick="resetFormulaires()" style="background:#dc3545;color:white;padding:10px 16px;border:none;border-radius:4px;cursor:pointer;">
+    Réinitialiser toutes les réponses
+  </button>
+</div>
+
+</body>
+</html>

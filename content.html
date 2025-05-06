@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Content</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f7f7f7; color:#333; }
+    nav { background:#fff; padding:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+    nav a { margin-right:15px; text-decoration:none; color:#333; font-weight:bold; }
+    nav a.active { color:#007bff; }
+    .lang-switch { float:right; }
+    .lang-switch button { padding:4px 8px; cursor:pointer; }
+    form { background:#fff; padding:20px; border-radius:4px; box-shadow:0 0 6px rgba(0,0,0,0.1); margin-top:20px; }
+    .form-grid { display:grid; grid-template-columns:1fr; gap:20px; }
+    .form-group { display:flex; flex-direction:column; }
+    .form-group.full { grid-column:span 1; }
+    label { margin-bottom:5px; font-weight:bold; }
+    input, select, textarea, button { padding:8px; border:1px solid #ccc; border-radius:2px; font-size:1em; }
+    textarea { resize:vertical; min-height:80px; }
+    .checkbox-group { display:flex; flex-direction:column; gap:8px; }
+    .checkbox-group label { font-weight:normal; }
+    .add-item { margin-top:8px; align-self:flex-start; background:#eee; border:none; cursor:pointer; }
+    .required { font-size:.75em; color:#d00; margin-left:4px; }
+    .form-actions { text-align:right; margin-top:20px; }
+    .form-actions a { padding:8px 16px; background:#007bff; color:#fff; text-decoration:none; border-radius:4px; }
+    .form-actions a.disabled { background:#aaa; pointer-events:none; }
+    .fr { display:inline; }
+    .en { display:none; }
+    html[data-lang="en"] .fr { display:none; }
+    html[data-lang="en"] .en { display:inline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="personal.html"><span class="fr">Info Perso</span></a>
+    <a href="chatting.html"><span class="fr">Discussion</span></a>
+    <a href="lifestyle.html"><span class="fr">Mode de vie</span></a>
+    <a href="physiques.html"><span class="fr">Physiques</span></a>
+    <a href="content.html" class="active"><span class="fr">Contenu</span></a>
+    <a href="intimate.html"><span class="fr">Détails Intimes</span></a>
+    <a href="socials.html"><span class="fr">Réseaux</span></a>
+    
+  </nav>
+
+  <form id="content-form">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="niche">
+          <span class="fr">Décrivez votre niche et ce que vos fans cherchent en 2-3 phrases</span>
+          
+          <span class="required"><span class="fr">Requis</span></span>
+        </label>
+        <textarea id="niche" name="niche" placeholder="" required></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label for="offer">
+          <span class="fr">Quel contenu proposez-vous sur votre page ? (ex : roleplay, workout, etc.)</span>
+          
+        </label>
+        <select id="offer" name="offer">
+          <option value="">—</option>
+          <option value="roleplay">Roleplay</option>
+          <option value="workout">Workout</option>
+          <!-- ajouter d’autres options au besoin -->
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label>
+          <span class="fr">Quels services offrez-vous à vos fans ? <br><small>(Les demandes non cochées seront refusées par l’agent; les autres seront transmises à un humain.)</small></span>
+          
+        </label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="service_gfe" checked> <span class="fr">GFE (sexting pour tips)</span></label>
+          <label><input type="checkbox" name="service_dick"> <span class="fr">Notation de pénis</span></label>
+          <label><input type="checkbox" name="service_custom"> <span class="fr">Vente de contenu custom (aka customs)</span></label>
+          <label><input type="checkbox" name="service_vip"> <span class="fr">Vente d’un package VIP</span></label>
+          <label><input type="checkbox" name="service_feed"> <span class="fr">Vente via posts ou feed campaigns</span></label>
+          <label><input type="checkbox" name="service_goods"> <span class="fr">Vente d’objets physiques (ex : sous-vêtements portés)</span></label>
+          <button type="button" class="add-item"><span class="fr">+ Ajouter un item custom</span></button>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label for="redline">
+          <span class="fr">Quel contenu ou services sont une ligne rouge pour vous ?</span>
+          
+        </label>
+        <select id="redline" name="redline">
+          <option value="">—</option>
+          <!-- options -->
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <a href="physiques.html"><span class="fr">Précédent</span></a>
+      <a href="intimate.html"><span class="fr">Suivant</span></a>
+    </div>
+  </form>
+
+  <script>
+    // Persistance de la langue
+    const stored = localStorage.getItem('lang') || 'fr';
+    document.documentElement.setAttribute('data-lang', stored);
+    const btn = document.getElementById('toggle-lang');
+    btn.textContent = stored === 'fr' ? 'English' : 'Français';
+    btn.onclick = () => {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-lang') === 'fr' ? 'en' : 'fr';
+      html.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      btn.textContent = next === 'fr' ? 'English' : 'Français';
+    };
+  </script>
+
+
+<script>
+  const form = document.querySelector("form");
+  const formId = form.getAttribute("id");
+
+  // Charger les données sauvegardées
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedData = localStorage.getItem("formData_" + formId);
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      for (const [key, value] of Object.entries(data)) {
+        const field = form.elements.namedItem(key);
+        if (field) {
+          if (field.type === "checkbox" || field.type === "radio") {
+            if (Array.isArray(data[key])) {
+              data[key].forEach(val => {
+                const el = form.querySelector(`[name="\${key}"][value="\${val}"]`);
+                if (el) el.checked = true;
+              });
+            } else {
+              field.checked = true;
+            }
+          } else {
+            field.value = value;
+          }
+        }
+      }
+    }
+  });
+
+  // Sauvegarder automatiquement à chaque changement
+  form.addEventListener("input", () => {
+    const data = {};
+    for (const element of form.elements) {
+      if (!element.name) continue;
+      if ((element.type === "checkbox" || element.type === "radio") && !element.checked) continue;
+      if (element.type === "checkbox" && form.querySelectorAll(`[name="\${element.name}"]`).length > 1) {
+        data[element.name] = [...form.querySelectorAll(`[name="\${element.name}"]:checked`)].map(e => e.value);
+      } else {
+        data[element.name] = element.value;
+      }
+    }
+    localStorage.setItem("formData_" + formId, JSON.stringify(data));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mode de vie</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f7f7f7; color:#333; }
+    nav { background:#fff; padding:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+    nav a { margin-right:15px; text-decoration:none; color:#333; font-weight:bold; }
+    nav a.active { color:#007bff; }
+    .lang-switch { float:right; }
+    .lang-switch button { padding:4px 8px; cursor:pointer; }
+    form { background:#fff; padding:20px; border-radius:4px; box-shadow:0 0 6px rgba(0,0,0,0.1); margin-top:20px; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .form-group { display:flex; flex-direction:column; }
+    .form-group.full { grid-column:span 2; }
+    label { margin-bottom:5px; font-weight:bold; }
+    input, select, textarea { padding:8px; border:1px solid #ccc; border-radius:2px; font-size:1em; }
+    textarea { resize:vertical; min-height:80px; }
+    .required { font-size:.75em; color:#d00; margin-left:4px; }
+    .form-actions { text-align:right; margin-top:20px; }
+    .form-actions a { padding:8px 16px; background:#007bff; color:#fff; text-decoration:none; border-radius:4px; }
+    .form-actions a.disabled { background:#aaa; pointer-events:none; }
+    .fr { display:inline; }
+    .en { display:none; }
+    html[data-lang="en"] .fr { display:none; }
+    html[data-lang="en"] .en { display:inline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="personal.html"><span class="fr">Info Perso</span></a>
+    <a href="chatting.html"><span class="fr">Discussion</span></a>
+    <a href="lifestyle.html" class="active"><span class="fr">Mode de vie</span></a>
+    <a href="physiques.html"><span class="fr">Physiques</span></a>
+    <a href="content.html"><span class="fr">Contenu</span></a>
+    <a href="intimate.html"><span class="fr">Détails Intimes</span></a>
+    <a href="socials.html"><span class="fr">Réseaux</span></a>
+    
+  </nav>
+
+  <form id="lifestyle-form">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="hobbies">
+          <span class="fr">Quels sont vos hobbies et centres d’intérêt ? Qu’appréciez-vous ?</span>
+          
+          <span class="required"><span class="fr">Requis</span></span>
+        </label>
+        <textarea id="hobbies" name="hobbies" placeholder="Describe your hobbies and interests in detail" required></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label for="typical_day">
+          <span class="fr">À quoi ressemble une journée typique dans votre vie ? Que faites-vous habituellement ?</span>
+          
+          <span class="required"><span class="fr">Requis</span></span>
+        </label>
+        <textarea id="typical_day" name="typical_day" placeholder="Décrivez vos activités quotidiennes" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="morning_routine">
+          <span class="fr">Quelle est votre routine matinale ?</span>
+          
+        </label>
+        <input type="text" id="morning_routine" name="morning_routine" placeholder="Décrivez comment vous commencez la journée">
+      </div>
+
+      <div class="form-group">
+        <label for="night_routine">
+          <span class="fr">Quelle est votre routine du soir ?</span>
+          
+        </label>
+        <input type="text" id="night_routine" name="night_routine" placeholder="Décrivez votre routine du soir">
+      </div>
+
+      <div class="form-group full">
+        <label for="weekends">
+          <span class="fr">Que faites-vous le week-end ?</span>
+          
+        </label>
+        <input type="text" id="weekends" name="weekends" placeholder="Décrivez ce que vous faites le week-end">
+      </div>
+
+      <div class="form-group">
+        <label for="fav_food">
+          <span class="fr">Plat favori ?</span>
+          
+        </label>
+        <input type="text" id="fav_food" name="fav_food" placeholder="Parlez-nous de vos plats préférés">
+      </div>
+
+      <div class="form-group">
+        <label for="fav_drink">
+          <span class="fr">Boisson favorite ?</span>
+          
+        </label>
+        <input type="text" id="fav_drink" name="fav_drink" placeholder="Parlez-nous de votre boisson préférée">
+      </div>
+
+      <div class="form-group">
+        <label for="drinking">
+          <span class="fr">Habitudes de consommation ?</span>
+          
+        </label>
+        <input type="text" id="drinking" name="drinking" placeholder="Parlez-nous de vos habitudes de consommation">
+      </div>
+
+      <div class="form-group">
+        <label for="smoking">
+          <span class="fr">Fumez-vous ? À quelle fréquence ?</span>
+          
+        </label>
+        <input type="text" id="smoking" name="smoking" placeholder="Parlez-nous de vos habitudes de tabac">
+      </div>
+
+      <div class="form-group">
+        <label for="fav_color">
+          <span class="fr">Couleur favorite ?</span>
+          
+        </label>
+        <input type="text" id="fav_color" name="fav_color" placeholder="Quelle est votre couleur préférée ?">
+      </div>
+
+      <div class="form-group">
+        <label for="fav_music">
+          <span class="fr">Musique favorite ?</span>
+          
+        </label>
+        <input type="text" id="fav_music" name="fav_music" placeholder="Quel genre de musique aimez-vous ?">
+      </div>
+
+      <div class="form-group">
+        <label for="fav_books">
+          <span class="fr">Livres favoris ?</span>
+          
+        </label>
+        <input type="text" id="fav_books" name="fav_books" placeholder="Quels livres aimez-vous ?">
+      </div>
+
+      <div class="form-group">
+        <label for="fav_movies">
+          <span class="fr">Films favoris ?</span>
+          
+        </label>
+        <input type="text" id="fav_movies" name="fav_movies" placeholder="Quels films aimez-vous ?">
+      </div>
+
+      <div class="form-group full">
+        <label for="workout">
+          <span class="fr">Faites-vous du sport ? Quelles routines appréciez-vous ?</span>
+          
+        </label>
+        <textarea id="workout" name="workout" placeholder="Décrivez vos activités ou routines sportives"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label for="watch_sports">
+          <span class="fr">Aimez-vous regarder du sport ? Lesquels ?</span>
+          
+        </label>
+        <textarea id="watch_sports" name="watch_sports" placeholder="Quels sports aimez-vous regarder ?"></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <a href="chatting.html"><span class="fr">Précédent</span></a>
+      <a href="physiques.html"><span class="fr">Suivant</span></a>
+    </div>
+  </form>
+
+  <script>
+    // Persistance de la langue
+    const stored = localStorage.getItem('lang') || 'fr';
+    document.documentElement.setAttribute('data-lang', stored);
+    const btn = document.getElementById('toggle-lang');
+    btn.textContent = stored === 'fr' ? 'English' : 'Français';
+    btn.onclick = () => {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-lang') === 'fr' ? 'en' : 'fr';
+      html.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      btn.textContent = next === 'fr' ? 'English' : 'Français';
+    };
+  </script>
+
+<script>
+  const form = document.querySelector("form");
+  const formId = form.getAttribute("id");
+
+  // Charger les données sauvegardées
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedData = localStorage.getItem("formData_" + formId);
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      for (const [key, value] of Object.entries(data)) {
+        const field = form.elements.namedItem(key);
+        if (field) {
+          if (field.type === "checkbox" || field.type === "radio") {
+            if (Array.isArray(data[key])) {
+              data[key].forEach(val => {
+                const el = form.querySelector(`[name="\${key}"][value="\${val}"]`);
+                if (el) el.checked = true;
+              });
+            } else {
+              field.checked = true;
+            }
+          } else {
+            field.value = value;
+          }
+        }
+      }
+    }
+  });
+
+  // Sauvegarder automatiquement à chaque changement
+  form.addEventListener("input", () => {
+    const data = {};
+    for (const element of form.elements) {
+      if (!element.name) continue;
+      if ((element.type === "checkbox" || element.type === "radio") && !element.checked) continue;
+      if (element.type === "checkbox" && form.querySelectorAll(`[name="\${element.name}"]`).length > 1) {
+        data[element.name] = [...form.querySelectorAll(`[name="\${element.name}"]:checked`)].map(e => e.value);
+      } else {
+        data[element.name] = element.value;
+      }
+    }
+    localStorage.setItem("formData_" + formId, JSON.stringify(data));
+  });
+</script>
+
+</body>
+</html>
